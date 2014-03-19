@@ -1,0 +1,93 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.*;
+
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+
+
+public class Game extends JFrame implements MouseInputListener
+{
+ private JButton objButtonDrag;
+ public int pressed;
+ public int released;
+     
+     public Game()
+     {
+          super("Game");
+          
+          
+
+          objButtonDrag = new JButton("Horizontal");
+          objButtonDrag.addMouseListener(this);
+          objButtonDrag.addMouseMotionListener(this);
+           objButtonDrag.setBounds(0, 100, 100, 100);
+
+          getContentPane().setLayout(null);
+          getContentPane().add(objButtonDrag);
+
+          setSize(new Dimension(650, 650));
+       
+
+          setVisible(true);
+
+          addWindowListener(new WindowAdapter() {
+               public void windowClosing(WindowEvent argEvent) {
+                    Destructor();
+               }
+          });
+     }
+     
+
+     public void mousePressed(MouseEvent argEvent) {
+    //	 System.out.println("Pressed: " + argEvent.getX());
+    	 pressed = argEvent.getX();
+
+    	 
+ 	}
+     
+     public void mouseReleased(MouseEvent argEvent) {
+  
+    	 System.out.println("width: " + getWidth());
+    	 released = argEvent.getX();
+    	 
+    	 if(pressed > released) //move button to left
+    	 {
+    		 Rectangle objBounds = objButtonDrag.getBounds();
+    		 if((int)objButtonDrag.getLocation().getX() >= (int)objButtonDrag.getWidth())
+    			 objButtonDrag.setLocation(objBounds.x-100, 100);
+    	 }
+    	 
+    	 else if(pressed < released) // move button to right
+    	 {
+    		 
+    		 Rectangle objBounds = objButtonDrag.getBounds();
+    		if((int)objButtonDrag.getLocation().getX() < getWidth()-(int)objButtonDrag.getWidth())
+    		 objButtonDrag.setLocation(objBounds.x+100, 100);
+    	 }
+    	 
+    	 System.out.println("Location: " + (int)objButtonDrag.getLocation().getX());
+     }
+ 
+
+
+     public void Destructor()
+     {
+          dispose();
+
+          System.exit(0);
+     }
+
+     public static void main(String [] argCommand)
+     {
+          Game objGame = new Game();
+     }
+
+    public void mouseMoved(MouseEvent argEvent) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {}
+	public void mouseDragged(MouseEvent e) {}
+
+
+}

@@ -1,0 +1,85 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.*;
+
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+
+
+public class Game extends JFrame implements MouseInputListener
+{
+ private JButton objButtonDrag;
+     
+     public Game()
+     {
+          super("Game");
+
+          objButtonDrag = new JButton("DragButton");
+          objButtonDrag.addMouseListener(this);
+           objButtonDrag.setBounds(0, 0, 100, 100);
+
+          getContentPane().setLayout(null);
+          getContentPane().add(objButtonDrag);
+
+          setSize(new Dimension(500, 500));
+
+          setVisible(true);
+
+          addWindowListener(new WindowAdapter() {
+               public void windowClosing(WindowEvent argEvent) {
+                    Destructor();
+               }
+          });
+     }
+     
+     @Override
+     public void mousePressed(MouseEvent e) {
+    	 System.out.println("Clicked at: ("+e.getX()+","+e.getY()+")");
+ 		
+ 	}
+     @Override
+     public void mouseDragged(MouseEvent argEvent)
+     {
+          System.out.println("("+argEvent.getX()+","+argEvent.getY()+")");
+          
+          if (argEvent.getX() < 0 || argEvent.getY() < 0) {
+               Rectangle objBounds = objButtonDrag.getBounds();
+
+               objButtonDrag.setLocation(objBounds.x+argEvent.getX(), objBounds.y+argEvent.getY());
+          } else {
+               Rectangle objBounds = objButtonDrag.getBounds();
+
+               if (objBounds.x <= objBounds.x+argEvent.getX() && objBounds.x+argEvent.getX() <= objBounds.x+objBounds.width &&
+                    objBounds.y <= objBounds.y+argEvent.getY() && objBounds.y+argEvent.getY() <= objBounds.y+objBounds.height) {
+          
+                    objButtonDrag.setLocation(objBounds.x+argEvent.getX(), objBounds.y+argEvent.getY());
+               } else {
+                    objButtonDrag.setLocation(argEvent.getX(), argEvent.getY());
+               }     
+          }
+
+          repaint();
+     }
+
+     
+
+     public void Destructor()
+     {
+          dispose();
+
+          System.exit(0);
+     }
+
+     public static void main(String [] argCommand)
+     {
+          Game objGame = new Game();
+     }
+
+    public void mouseMoved(MouseEvent argEvent) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {}
+
+
+}

@@ -1,0 +1,124 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.*;
+
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+
+
+public class Game extends JFrame implements MouseInputListener
+{
+ private JButton objButtonDrag;
+ public int pressed;
+ public int released;
+     
+     public Game()
+     {
+          super("Game");
+
+          objButtonDrag = new JButton("DragButton");
+          objButtonDrag.addMouseListener(this);
+          objButtonDrag.addMouseMotionListener(this);
+           objButtonDrag.setBounds(0, 100, 100, 100);
+
+          getContentPane().setLayout(null);
+          getContentPane().add(objButtonDrag);
+
+          setSize(new Dimension(600, 600));
+
+          setVisible(true);
+
+          addWindowListener(new WindowAdapter() {
+               public void windowClosing(WindowEvent argEvent) {
+                    Destructor();
+               }
+          });
+     }
+     
+
+     public void mousePressed(MouseEvent argEvent) {
+    	 System.out.println("Pressed: " + argEvent.getX());
+    	 pressed = argEvent.getX();
+
+    	 
+ 	}
+     
+     public void mouseReleased(MouseEvent argEvent) {
+  
+    	 System.out.println("Released: " + argEvent.getX());
+    	 released = argEvent.getX();
+    	 
+    	 if(pressed > released) //move button to left
+    	 {
+    		 Rectangle objBounds = objButtonDrag.getBounds();
+    		 if(objButtonDrag.getLocation().getX() >=100)
+    			 objButtonDrag.setLocation(objBounds.x-100, 100);
+    	 }
+    	 
+    	 else if(pressed < released) // move button to right
+    	 {
+    		 Rectangle objBounds = objButtonDrag.getBounds();
+    		if(objButtonDrag.getLocation().getX() <= this.getWidth())
+    		 objButtonDrag.setLocation(objBounds.x+100, 100);
+    	 }
+     }
+ 
+   /*(  public void mouseDragged(MouseEvent argEvent)
+     {
+    	
+          System.out.println(argEvent.getX());
+          
+          if (argEvent.getX() < 0) {
+               Rectangle objBounds = objButtonDrag.getBounds();
+
+               objButtonDrag.setLocation(objBounds.x+argEvent.getX(), 100);
+
+          } else if(argEvent.getX() > 0) {
+               Rectangle objBounds = objButtonDrag.getBounds();
+
+               if (objBounds.x <= objBounds.x+argEvent.getX() && objBounds.x+argEvent.getX() <= objBounds.x+objBounds.width) {
+          
+                    objButtonDrag.setLocation(objBounds.x+argEvent.getX(), +100);
+
+               } else {
+                    objButtonDrag.setLocation(argEvent.getX(), 100);
+
+               }     
+          }
+         // objButtonDrag.removeMouseMotionListener(this);
+          repaint();
+          objButtonDrag.setFocusable(false);
+
+
+          
+         
+     }
+*/
+     
+
+     public void Destructor()
+     {
+          dispose();
+
+          System.exit(0);
+     }
+
+     public static void main(String [] argCommand)
+     {
+          Game objGame = new Game();
+     }
+
+    public void mouseMoved(MouseEvent argEvent) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {}
+
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+}

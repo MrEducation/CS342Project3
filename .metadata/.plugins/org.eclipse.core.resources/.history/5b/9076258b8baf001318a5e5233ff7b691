@@ -1,0 +1,95 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.*;
+
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+
+
+public class Game extends JFrame implements MouseInputListener
+{
+ private JButton objButtonDrag;
+     
+     public Game()
+     {
+          super("Game");
+
+          objButtonDrag = new JButton("DragButton");
+          objButtonDrag.addMouseListener(this);
+          objButtonDrag.addMouseMotionListener(this);
+           objButtonDrag.setBounds(100, 100, 100, 100);
+
+          getContentPane().setLayout(null);
+          getContentPane().add(objButtonDrag);
+
+          setSize(new Dimension(500, 500));
+
+          setVisible(true);
+
+          addWindowListener(new WindowAdapter() {
+               public void windowClosing(WindowEvent argEvent) {
+                    Destructor();
+               }
+          });
+     }
+     
+
+     public void mousePressed(MouseEvent e) {
+    //	 objButtonDrag.addMouseMotionListener(this);
+    	 objButtonDrag.setSelected(true);
+         objButtonDrag.setFocusable(true);
+ 	}
+     
+     public void mouseReleased(MouseEvent e) {
+   // 	 objButtonDrag.addMouseMotionListener(this);
+     }
+ 
+     public void mouseDragged(MouseEvent argEvent)
+     {
+    	
+          System.out.println(argEvent.getX());
+          
+          if (argEvent.getX() < 0) {
+               Rectangle objBounds = objButtonDrag.getBounds();
+
+               objButtonDrag.setLocation(objBounds.x+argEvent.getX(), 100);
+          } else if(argEvent.getX() > 0) {
+               Rectangle objBounds = objButtonDrag.getBounds();
+
+               if (objBounds.x <= objBounds.x+argEvent.getX() && objBounds.x+argEvent.getX() <= objBounds.x+objBounds.width) {
+          
+                    objButtonDrag.setLocation(objBounds.x+argEvent.getX(), +100);
+                    objButtonDrag.removeMouseMotionListener(this);
+               } else {
+                    objButtonDrag.setLocation(argEvent.getX(), 100);
+                    objButtonDrag.removeMouseMotionListener(this);
+               }     
+          }
+         // objButtonDrag.removeMouseMotionListener(this);
+          repaint();
+          objButtonDrag.setFocusable(false);
+          
+         
+     }
+
+     
+
+     public void Destructor()
+     {
+          dispose();
+
+          System.exit(0);
+     }
+
+     public static void main(String [] argCommand)
+     {
+          Game objGame = new Game();
+     }
+
+    public void mouseMoved(MouseEvent argEvent) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {}
+
+
+}
