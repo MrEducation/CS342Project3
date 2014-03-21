@@ -27,8 +27,12 @@ public class Game extends JFrame implements MouseInputListener
           getContentPane().setLayout(null);
           setSize(new Dimension(600, 625));
           
-          blocks.add(new Blocks('h', "Horizontal", 1, 1, 1,1));
+          
+          
+       //   blocks.add(new Blocks('h', "Horizontal", 0, 3, 1,1));
           blocks.add(new Blocks('u', "Vertical", 2, 2, 1,2));
+          blocks.add(new Blocks('h', "Horizontal", 0, 1, 1,1));
+
           
           for(Blocks b : blocks)
           {
@@ -80,7 +84,10 @@ public class Game extends JFrame implements MouseInputListener
      
      public void mouseReleased(MouseEvent argEvent) {
   
-
+    	 
+    	 Rectangle objBounds = button.getBounds();
+    	 Rectangle tempBounds = objBounds;
+    	 boolean letMove = false;
     	 
     	 if(block.getDirection() == 'h')
     		 released = argEvent.getX();
@@ -88,38 +95,166 @@ public class Game extends JFrame implements MouseInputListener
      		 released = argEvent.getY();
 
     	 if(block.getDirection() == 'h'){
+  
+
     		 if(pressed > released) //move button to left
     		 {
-    			 Rectangle objBounds = button.getBounds();
-    			 if((int)button.getLocation().getX() != 0)
+    			 objBounds = button.getBounds();
+    			 tempBounds = button.getBounds();
+    			 for(Blocks b : blocks)
+    			 {
+    				 
+    				 if((b.getName().equals(button.getName())) == false)
+    				 {
+    					 System.out.println("Checking Collision with: " + b.getName());
+    					 Rectangle colBounds = b.getButton().getBounds();
+    				 
+    				 
+    				 	if((int)button.getLocation().getX() != 0)
+    				 	{
+    				 		tempBounds.setLocation(tempBounds.x-100,tempBounds.y);
+    				 		if((tempBounds.intersects(colBounds)) == false)
+    				 		{
+    				 		  letMove = true;
+
+    				 		}
+    				 		else
+    				 		{
+    				 			letMove = false;
+    				 		}
+    				 	}
+    				 	tempBounds = button.getBounds();
+    				 }
+    			 
+    			 }
+    			 
+    			 
+    			 if(letMove)
+    			 {
     				 button.setLocation(objBounds.x-100, (int)button.getLocation().getY());
+    				 letMove = false;
+    			 }
+    			 
+    			 
     		 }
     	 
     		 else if(pressed < released) // move button to right
     		 {
-    		 
-    			 Rectangle objBounds = button.getBounds();
-    			 if((int)button.getLocation().getX() < getWidth()-((int)button.getWidth()+17))
+    			 
+    			 objBounds = button.getBounds();
+    			 tempBounds = button.getBounds();
+    			 for(Blocks b : blocks)
+    			 {
+    				 
+    				 if((b.getName().equals(button.getName())) == false)
+    				 {
+ 
+    					 Rectangle colBounds = b.getButton().getBounds();
+    				 
+    				 
+    				 	if((int)button.getLocation().getX() < getWidth()-((int)button.getWidth()+17))
+    				 	{
+    				 		tempBounds.setLocation(tempBounds.x+100,tempBounds.y);
+    				 		if((tempBounds.intersects(colBounds)) == false)
+    				 		{
+    				 			letMove = true;
+
+    				 		}
+    				 		else
+    				 		{
+    				 			letMove = false;
+    				 		}
+    				 	}
+    				 }
+    				 tempBounds = button.getBounds();
+    			 
+    			 }
+    			 
+    			 if(letMove)
+    			 {
     				 button.setLocation(objBounds.x+100, (int)button.getLocation().getY());
+    				 letMove = false;
+    			 }
     		 }
     	 
     		 System.out.println("Location: (" + (int)button.getLocation().getX()+"," + (int)button.getLocation().getY() + ")");
     	 }
     	 
     	 else if(block.getDirection() == 'u'){
-    		 if(pressed > released) //move button to left
+    		 
+			 objBounds = button.getBounds();
+			 tempBounds = button.getBounds();
+    		 if(pressed > released) //move button down
     		 {
-    			 Rectangle objBounds = button.getBounds();
-    			 if((int)button.getLocation().getY() != 0)
+    			 for(Blocks b : blocks)
+    			 {
+    				 
+    				 if((b.getName().equals(button.getName())) == false)
+    				 {
+
+    					 Rectangle colBounds = b.getButton().getBounds();
+    				 
+    				 
+    				 	if((int)button.getLocation().getY() != 0)
+    				 	{
+    				 		tempBounds.setLocation(tempBounds.x,tempBounds.y-100);
+    				 		if((tempBounds.intersects(colBounds)) == false)
+    				 		{
+    				 			letMove = true;
+    				 		}
+    				 		else
+    				 		{
+    				 			letMove = false;
+    				 		}
+    				 	}
+    				 }
+    				 tempBounds = button.getBounds();
+    			 
+    			 }
+    
+    			 if(letMove)
+    			 {
     				 button.setLocation((int)button.getLocation().getX(), objBounds.y-100);
+    				 letMove = false;
+    			 }
     		 }
     	 
-    		 else if(pressed < released) // move button to right
+    		 else if(pressed < released) // move button up
     		 {
-    		 
-    			 Rectangle objBounds = button.getBounds();
-    			 if((int)button.getLocation().getY() < getWidth()-((int)button.getHeight()+17))
+    			 objBounds = button.getBounds();
+    			 tempBounds = button.getBounds();
+    			 
+    			 for(Blocks b : blocks)
+    			 {
+    				 
+    				 if((b.getName().equals(button.getName())) == false)
+    				 {
+    				
+    					 Rectangle colBounds = b.getButton().getBounds();
+    				 
+    				 
+    				 	if((int)button.getLocation().getY() < getWidth()-((int)button.getHeight()+17))
+    				 	{
+    				 		tempBounds.setLocation(tempBounds.x,tempBounds.y+100);
+    				 		if((tempBounds.intersects(colBounds)) == false)
+    				 		{
+    				 		  letMove = true;
+    				 		}
+    				 		else
+    				 		{
+    				 			letMove = false;
+    				 		}
+    				 	}
+    				 }
+    				 tempBounds = button.getBounds();
+    			 
+    			 }
+   
+    			 if(letMove)
+    			 {
     				 button.setLocation((int)button.getLocation().getX(), objBounds.y+100);
+    				 letMove = false;
+    			 }
     		 }
     	 
     		 System.out.println("Location: (" + (int)button.getLocation().getX()+"," + (int)button.getLocation().getY() + ")");
