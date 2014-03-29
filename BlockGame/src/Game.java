@@ -22,6 +22,7 @@ public class Game extends JFrame implements MouseInputListener
     	 
           super("Game");
           
+          
           blocks = new ArrayList<Blocks>();
         
           getContentPane().setLayout(null);
@@ -31,7 +32,7 @@ public class Game extends JFrame implements MouseInputListener
           
        //   blocks.add(new Blocks('h', "Horizontal", 0, 3, 1,1));
           blocks.add(new Blocks('u', "Vertical", 2, 2, 1,2));
-          blocks.add(new Blocks('h', "Horizontal", 0, 1, 1,1));
+          blocks.add(new Blocks('h', "Horizontal", 0, 1, 2,1));
 
           
           for(Blocks b : blocks)
