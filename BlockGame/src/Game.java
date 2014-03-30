@@ -22,17 +22,42 @@ public class Game extends JFrame implements MouseInputListener
     	 
           super("Game");
           
+         
+      
+          
+        //  System.out.println("\nTEST: " + attributes[2]);
+          
           
           blocks = new ArrayList<Blocks>();
         
           getContentPane().setLayout(null);
           setSize(new Dimension(600, 625));
           
+          ArrayList<ArrayList<String>> input = Input.getInput();
+          
+          char[] attributes = new char[5];
+          int counter = 0;
+          
+          for(ArrayList<String> s : input)
+			{
+				for(String v : s)
+				{
+					System.out.print(v);
+					attributes[counter] = v.charAt(0);
+					counter++;
+				}
+				
+				blocks.add(new Blocks('u', "Vertical", Character.getNumericValue(attributes[0]), Character.getNumericValue(attributes[1]), Character.getNumericValue(attributes[2]), Character.getNumericValue(attributes[3])));
+				
+        	  	counter = 0;
+       
+			}
+          
           
           
        //   blocks.add(new Blocks('h', "Horizontal", 0, 3, 1,1));
-          blocks.add(new Blocks('u', "Vertical", 2, 2, 1,2));
-          blocks.add(new Blocks('h', "Horizontal", 0, 1, 2,1));
+        //  blocks.add(new Blocks('u', "Vertical", 2, 2, 1,2));
+      //    blocks.add(new Blocks('h', "Horizontal", 0, 1, 2,1));
 
           
           for(Blocks b : blocks)
@@ -274,6 +299,7 @@ public class Game extends JFrame implements MouseInputListener
 
      public static void main(String [] argCommand)
      {
+    	  Input getIn = new Input();
           Game objGame = new Game();
      }
 

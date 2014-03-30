@@ -1,0 +1,102 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.*;
+
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.io.IOException; 
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+
+public class Input {
+
+	
+	public static ArrayList<String[]> input = new ArrayList<String[]>();
+	public static String[] attributes = new String[5];
+
+	
+	//Scanner and File Objects
+		static Scanner s; 
+		static File f;
+
+		public static void main (String [] args){
+			
+
+			f = new File("input.txt");
+	
+			try {
+				s = new Scanner(f).useDelimiter(" |\\n");
+			} catch (FileNotFoundException e) {
+
+				e.printStackTrace();
+			}
+		
+	
+			int i = 0;
+			int counter = 0;
+			while(s.hasNext()){
+				
+				String a = s.next();
+				int val;
+			
+	
+				
+				if(i == 0 || i == 1)
+				{	
+					
+					val = Integer.parseInt(a);
+					System.out.print(val);
+				
+					
+				}
+				
+				else
+				{
+					//try{
+						//val = Integer.parseInt(a);
+						System.out.print(a);
+						attributes[counter] = a;
+						counter++;
+
+					//	}catch( NumberFormatException e ){
+							
+							
+							
+					//	}
+				}
+				
+				if(counter == 5)
+				{
+					counter = 0;
+					input.add(attributes);
+					attributes = new String[5];
+				}
+				
+				i++;
+
+			}
+			
+			for(String[] s : input)
+			{
+				for(String v : attributes)
+				{
+					System.out.println(v);
+				}
+			}
+	
+
+		}
+	
+	
+
+}

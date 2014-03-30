@@ -1,44 +1,93 @@
-
-import java.io.BufferedReader;
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.io.IOException; 
 
 public class Input {
 
 	
-	public ArrayList<Blocks> blocks;
+	private static ArrayList<ArrayList<String>> input = new ArrayList<ArrayList<String>>();
+	private static ArrayList<String> attributes = new ArrayList<String>();
+
 	
 	//Scanner and File Objects
 		static Scanner s; 
 		static File f;
 
-		public static void main (String [] args){
-
+		Input(){
+			
 
 			f = new File("input.txt");
 	
 			try {
-				s = new Scanner(f).useDelimiter("\n");
-			} catch (FileNotFoundException e) {
+				s = new Scanner(f).useDelimiter(" |\\n");
+				}
+			catch (FileNotFoundException e) {
 
 				e.printStackTrace();
-			}
+				}
 		
 	
-			
+			int i = 0;
 			while(s.hasNext()){
-	 
-				System.out.print(s.next());
+				
+				String a = s.next();
+				int val;
+			
+	
+				
+				if(i == 0 || i == 1)
+				{	
+					
+					val = Integer.parseInt(a);
+				//	System.out.print(val);
+				
+					
+				}
+				
+				else
+				{
+					try{
+						
+						val = Integer.parseInt(a);
+						
+					//	System.out.print(a);
+						attributes.add(a);
+						
+						}catch( NumberFormatException e ){
+							
+
+							attributes.add(a);
+							input.add(attributes);
+							attributes = new ArrayList<String>();
+							
+					 	}
+						
+						
+					
+						
+				}
+				
+		
+				i++;
 
 			}
-
+			System.out.println();
+			System.out.println("**********************");
+			
+			/*for(ArrayList<String> s : input)
+			{
+				for(String v : s)
+				{
+					System.out.print(v);
+				}
+	
+			}*/
+	
 		}
-	
-	
-
+		
+		public static  ArrayList<ArrayList<String>> getInput()
+		{
+			return input;
+		}
 }
