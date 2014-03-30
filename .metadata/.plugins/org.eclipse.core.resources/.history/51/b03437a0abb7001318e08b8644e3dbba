@@ -23,6 +23,7 @@ public class Game extends JFrame implements MouseInputListener
           super("Game");
           
          
+      
           
         //  System.out.println("\nTEST: " + attributes[2]);
           
@@ -37,7 +38,6 @@ public class Game extends JFrame implements MouseInputListener
           char[] attributes = new char[5];
           int counter = 0;
           
-          int i = 0;
           for(ArrayList<String> s : input)
 			{
 				for(String v : s)
@@ -46,11 +46,10 @@ public class Game extends JFrame implements MouseInputListener
 					attributes[counter] = v.charAt(0);
 					counter++;
 				}
-				i++;
-				blocks.add(new Blocks('u', Integer.toString(i), Character.getNumericValue(attributes[0]), Character.getNumericValue(attributes[1]), Character.getNumericValue(attributes[2]), Character.getNumericValue(attributes[3])));
+				
+				blocks.add(new Blocks('u', "Vertical", Character.getNumericValue(attributes[0]), Character.getNumericValue(attributes[1]), Character.getNumericValue(attributes[2]), Character.getNumericValue(attributes[3])));
 				
         	  	counter = 0;
-        	  	
        
 			}
           
